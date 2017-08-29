@@ -33,12 +33,27 @@ database.ref("/pokemon").on("value", function(snapshot) {
 });
 
 function updateTable(val){
-	$("#pkmnData").append("<tr><td>" + 
+	$("#pkmnData").append("<tr><td class='img-" + val.name + "'></td><td>" + 
 		val.name + "</td><td>" + val.type + "</td><td>" + 
 		val.dayCaught + "</td><td>" + val.rate + "</td><td>" + 
 		val.monthsTrained + "</td><td>" + val.exp + "</td><td><button class='removePkmn' data-value='" + 
 		val.key + "'>x</button></td></tr>");
+	makeGifs(val.name);
 }
+
+function makeGifs(query){
+	$.ajax({
+		url: "https://api.giphy.com/v1/gifs/search?q=" + query + "&api_key=cd348e08c50247ec84489456201900ba&limit=1",
+		method: "GET"
+	}).done(function(response) {
+			var vid = $("<video>").attr("preload", "none").attr("loop", "loop").attr("poster", response.data[0].images.fixed_height_still.url).append("<source src='" + response.data[0].images.fixed_height.mp4 + "' type='video/mp4'>");
+			$(".img-"+ query ).html(vid);
+	});
+}
+
+$(document).on("click", "video", function(){
+	this.play();
+})
 
 $("#btnSubmit").on("click", function(event) {
 
