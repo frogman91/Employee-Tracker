@@ -15,6 +15,7 @@ var pokemon = database.ref("/pokemon");
 
 database.ref("/pokemon").on("value", function(snapshot) {
 
+	$("#pkmnData").empty();
 	snapshot.forEach(function(snapshotChild) {
 		console.log(snapshotChild.key);
 		var pokeObj = { 
@@ -26,7 +27,6 @@ database.ref("/pokemon").on("value", function(snapshot) {
 			rate: snapshotChild.val().rate,
 			key: snapshotChild.key
 		};
-
 		updateTable(pokeObj);
 	});
 
