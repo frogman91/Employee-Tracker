@@ -40,17 +40,26 @@ function updateTable(val){
 		val.key + "'>x</button></td></tr>");
 }
 
-$("#btnSubmit").on("click", function() {
+$("#btnSubmit").on("click", function(event) {
+
+	event.preventDefault();
 
 	console.log("click");
 	
 	var name = $("#name").val().trim();
 	var type = $("#type").val().trim();
 	var dayCaught = $("#caught").val().trim();
-	var dayCaughtArr = dayCaught.split("/");
+	console.log(dayCaught);
+	var dayCaughtArr = dayCaught.split("-");
 	var rate = parseInt($("#expRate").val().trim());
-	var monthsTrained = 12;
-	var exp = monthsTrained*rate;
+	var monthsTrained = calcMonths(dayCaughtArr);
+	if (monthsTrained >= 0) {
+		var exp = parseInt((monthsTrained*rate)/500);
+	}
+	else {
+		var exp = "N/A";
+		monthsTrained = "Invalid Date";
+	}
 
 	database.ref("/pokemon").push({
 		name: name,
@@ -60,6 +69,8 @@ $("#btnSubmit").on("click", function() {
 		monthsTrained: monthsTrained,
 		exp: exp
 	});
+
+	$("#name, #type, #caught, #expRate").val("");
 });
 
 $("body").on("click", ".removePkmn", function() {
@@ -67,3 +78,24 @@ $("body").on("click", ".removePkmn", function() {
 	database.ref("/pokemon").child($(this).attr("data-value")).remove();
 
 });
+
+function calcMonths(arr) {
+	var sum = 0;
+
+	if (parseInt(arr[0]) > 2017 || parseInt(arr[1]) > 12 || parseInt(arr[2]) > 31) {
+		return -1;
+	}
+	if (parseInt(arr[0]) < 2017) {
+		sum += (8 - parseInt(arr[1]));
+		sum += (12*(2017 - parseInt(arr[0])));
+	}
+	else if (parseInt(arr[0]) === 2017 && parseInt(arr[1]) <= 8) {
+		sum += (8 - parseInt(arr[1]));
+	}
+	else  {
+		return -1;
+	}
+
+	return sum;
+
+}
