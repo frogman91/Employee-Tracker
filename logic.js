@@ -30,7 +30,6 @@ database.ref("/pokemon").on("value", function(snapshot) {
 
 });
 
-
 function updateTable(val){
 	$("#pkmnData").append("<tr><td>" + 
 		val.name + "</td><td>" + val.type + "</td><td>" + 
@@ -38,10 +37,24 @@ function updateTable(val){
 		val.monthsTrained + "</td><td>" + val.exp + "</td></tr>");
 }
 
-// function calcMonths(arr) {
-// 	var sumMonths = 0;
+$("#btnSubmit").on("click", function() {
 
-// 	if (parseInt(arr[2]) > 2017) { return "Invalid Date"}
-// 	else { sumMonths += 12*(2017-arr[2])}
+	console.log("click");
+	
+	var name = $("#name").val().trim();
+	var type = $("#type").val().trim();
+	var dayCaught = $("#caught").val().trim();
+	var dayCaughtArr = dayCaught.split("/");
+	var rate = parseInt($("#expRate").val().trim());
+	var monthsTrained = 12;
+	var exp = monthsTrained*rate;
 
-// 	if (parseInt(arr[2]) === 2017 && parseInt(arr[1]) )
+	database.ref("/pokemon").push({
+		name: name,
+		type: type,
+		dayCaught: dayCaught,
+		rate: rate,
+		monthsTrained: monthsTrained,
+		exp: exp
+	});
+});
