@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 var config = {
   apiKey: "AIzaSyBAD9iAQ89v6xwSdOW7HtBeHfd2olY8oYE",
   authDomain: "homework7-568d3.firebaseapp.com",
@@ -50,7 +49,6 @@ $("#btnSubmit").on("click", function() {
 // 	else { sumMonths += 12*(2017-arr[2])}
 
 // 	if (parseInt(arr[2]) === 2017 && parseInt(arr[1]) )
-=======
 var config = {
   apiKey: "AIzaSyBAD9iAQ89v6xwSdOW7HtBeHfd2olY8oYE",
   authDomain: "homework7-568d3.firebaseapp.com",
@@ -102,5 +100,4 @@ $("#btnSubmit").on("click", function() {
 // 	else { sumMonths += 12*(2017-arr[2])}
 
 // 	if (parseInt(arr[2]) === 2017 && parseInt(arr[1]) )
->>>>>>> f02913345860c5a42e1b8dab891b2de9c57eeb6a
 // }
