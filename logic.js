@@ -16,13 +16,15 @@ var pokemon = database.ref("/pokemon");
 database.ref("/pokemon").on("value", function(snapshot) {
 
 	snapshot.forEach(function(snapshotChild) {
+		console.log(snapshotChild.key);
 		var pokeObj = { 
 			name: snapshotChild.val().name,
 			type: snapshotChild.val().type,
 			dayCaught: snapshotChild.val().dayCaught,
 			exp: snapshotChild.val().exp,
 			monthsTrained: snapshotChild.val().monthsTrained,
-			rate: snapshotChild.val().rate
+			rate: snapshotChild.val().rate,
+			key: snapshotChild.key
 		};
 
 		updateTable(pokeObj);
