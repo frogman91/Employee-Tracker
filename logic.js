@@ -36,7 +36,7 @@ function updateTable(val){
 	$("#pkmnData").append("<tr><td>" + 
 		val.name + "</td><td>" + val.type + "</td><td>" + 
 		val.dayCaught + "</td><td>" + val.rate + "</td><td>" + 
-		val.monthsTrained + "</td><td>" + val.exp + "</td></td><button class='removePkmn' data-value='" + 
+		val.monthsTrained + "</td><td>" + val.exp + "</td><td><button class='removePkmn' data-value='" + 
 		val.key + "'>x</button></td></tr>");
 }
 
@@ -60,4 +60,10 @@ $("#btnSubmit").on("click", function() {
 		monthsTrained: monthsTrained,
 		exp: exp
 	});
+});
+
+$("body").on("click", ".removePkmn", function() {
+
+	database.ref("/pokemon").child($(this).attr("data-value")).remove();
+
 });
